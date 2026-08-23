@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the repository, Zenodo model record, associated paper, and nnU-Net."
+title: "Mouse T2W MRI Lung Lesion Segmentation"
+type: software
+authors:
+  - family-names: "TODO"
+    given-names: "TODO"
+version: "0.1.0"
+date-released: "TODO: YYYY-MM-DD"
+repository-code: "https://github.com/YOUR-GITHUB-USERNAME/MouseLungLesionSeg"
+doi: "TODO: Zenodo DOI"
+license: "TODO"
+
+
