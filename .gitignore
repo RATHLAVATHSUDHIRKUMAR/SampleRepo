@@ -1,0 +1,48 @@
+# Python environments and caches
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# IDE and operating-system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+fontlist-v*.json
+
+# Node.js tooling and local package caches
+node_modules/
+.pnpm-store/
+docs/source/
+
+# Runtime outputs and logs
+outputs/
+logs/
+AI_prediction/
+AI_Prediction/
+*.npz
+*.pkl
+
+# Medical images and segmentation outputs
+*.nii
+*.nii.gz
+*.nrrd
+*.mha
+*.mhd
+
+# Trained weights and large model archives
+*.pth
+*.pt
+*.ckpt
+*.onnx
+*.zip
+*.tar
+*.tar.gz
+*.7z
+
+models/**
+!models/README.md
+zenodo_assets/
+data/
+outputpath/
