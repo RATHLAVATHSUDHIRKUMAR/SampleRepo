@@ -1,38 +1,162 @@
 # Mouse T2W MRI Lung Lesion Segmentation
 
-A two-stage nnU-Net v2 pipeline for segmenting the lungs and lung lesions in mouse T2-weighted (T2W) MRI.
+A research repository for lung and pulmonary-lesion segmentation in mouse MRI.
+It contains the existing legacy inference pipeline and an advanced anatomy-guided
+3D architecture that is currently being trained and validated.
 
 > **Research use only:** This software and the accompanying models are not medical devices and have not been validated for clinical diagnosis or treatment.
 
-## Architecture specification
+## Architecture versions
 
-See [ARCHITECTURE_AND_PIPELINE.md](ARCHITECTURE_AND_PIPELINE.md) for the proposed
-anatomy-guided 3D architecture, mouse-grouped validation design, uncertainty
-estimation, longitudinal lesion tracking, and radiogenomic validation boundary.
+### Legacy architecture
 
-## Pipeline
+The legacy pipeline runs the lung and lesion models independently on the same
+MRI. It then clips the predicted lesion mask to the predicted lung mask and
+merges both outputs.
 
 ```text
-T2W MRI (*_0000.nii.gz)
+Mouse MRI (*_0000.nii.gz)
         |----------------------|
         v                      v
   Lung nnU-Net          Lesion nnU-Net
         |                      |
-        |------ merge ---------|
+        |---- hard-mask merge -|
                   v
        0 background / 1 lung / 2 lesion
 ```
 
-The lung and lesion models receive the same input MRI. The merge step retains predicted lesion voxels only within the predicted lung mask.
+This architecture is retained for compatibility with the existing packaged
+models and inference scripts. A limitation is that hard lung-mask clipping can
+remove lesions near uncertain lung or pleural boundaries.
+
+### Advanced architecture under development
+
+The advanced pipeline uses the lung prediction as soft anatomical guidance for
+the lesion model:
+
+#### Why move to the advanced architecture?
+
+The legacy pipeline is useful for inference with the existing packaged models,
+but its independent-model and hard-merge design limits the intended research
+workflow:
+
+1. **Hard-mask error propagation.** If the lung model excludes a true lung or
+   pleural region, the merge step automatically removes any lesion prediction
+   in that region. The lesion model cannot recover from the lung error.
+2. **No anatomical conditioning during lesion learning.** The legacy lesion
+   model sees MRI alone. It does not learn how uncertain lung anatomy should
+   influence lesion probability.
+3. **Small and boundary lesions are vulnerable.** Mouse pulmonary lesions can
+   occupy very few voxels and may lie near lung boundaries. A continuous lung
+   probability provides graded context instead of an all-or-nothing ROI.
+4. **No explicit uncertainty output.** A single hard prediction cannot
+   distinguish confident tumor from disagreement between models. Fold ensembles
+   provide probability variance and predictive entropy for quality control.
+5. **Scan-level segmentation is insufficient for longitudinal studies.** The
+   legacy pipeline reports masks and aggregate burden but does not integrate
+   registration, individual-lesion association, growth, resolution, or new
+   lesion events.
+6. **Validation can leak repeated-mouse information.** Random scan or slice
+   splitting can place different time points from one mouse in training and
+   validation. The advanced protocol groups every time point by biological
+   mouse and uses out-of-fold lung probabilities for lesion training.
+7. **Downstream phenotype analysis needs reproducible confidence-aware ROIs.**
+   Longitudinal volume, radiomics, and future RNA/pathology association require
+   traceable physical-space masks, uncertainty estimates, and clearly separated
+   validation stages.
+
+The advanced design therefore changes the lung output from a final hard gate
+into a soft anatomical feature. It also extends segmentation into a controlled
+mouse-grouped pipeline for uncertainty, longitudinal measurement, and eventual
+biological validation. These improvements are hypotheses to be tested; they are
+not assumed to outperform the legacy models until cross-validation is complete.
+
+```text
+Mouse 3D MRI
+      |
+      v
+Preprocessing and quality control
+      |
+      v
+Lung 3D nnU-Net
+      |
+      v
+Soft lung probability P(lung)
+      |-------------------|
+      |                   |
+      v                   v
+MRI channel         Anatomy channel
+      |                   |
+      |------ [MRI + P(lung)]
+                         |
+                         v
+             Anatomy-guided lesion model
+                         |
+              |----------|----------|
+              v                     v
+       Lesion probability      Uncertainty map
+              |                     |
+              |----------|----------|
+                         v
+             Confidence-aware lesions
+                         |
+                         v
+          Registration and lesion tracking
+                         |
+              |----------|----------|
+              v                     v
+        Volume trajectory       Radiomics
+              |                     |
+              |----------|----------|
+                         v
+               Imaging phenotype
+                         |
+              |----------|----------|
+              v                     v
+     Preliminary IL34       Future matched RNA /
+        comparison              pathology
+                                      |
+                                      v
+                                Radiogenomics
+```
+
+Key differences from the legacy pipeline:
+
+- The lesion model receives two channels: MRI and continuous `P(lung)`.
+- Lung guidance is generated out of fold so that the same mouse cannot leak
+  between model stages during validation.
+- The soft anatomical map is not converted into a hard training ROI.
+- Five-fold ensembles provide probability, disagreement, and entropy-based
+  uncertainty.
+- Longitudinal registration supports individual-lesion tracking and growth
+  trajectories.
+- The LacZ/iL34c comparison remains preliminary phenotype validation.
+- Radiogenomic claims are reserved until matched RNA or pathology data exist.
+
+The advanced architecture is not yet a released trained model. Lung fold
+training is in progress; anatomy-guided lesion training and downstream model
+validation follow after all out-of-fold lung probabilities are available.
+
+See [ARCHITECTURE_AND_PIPELINE.md](ARCHITECTURE_AND_PIPELINE.md) for the complete
+advanced specification and [DEEP_META_DATA_AUDIT.md](DEEP_META_DATA_AUDIT.md)
+for the DeepMeta provenance, conversion, exclusions, and validation protocol.
 
 ## Repository contents
 
 The GitHub repository contains only source code and documentation. Trained weights, extracted model folders, example MRI volumes, and generated predictions are intentionally excluded from Git.
 
+The publication boundary is:
+
+- **GitHub:** source code, documentation, configurations, grouped splits, and
+  sanitized metadata.
+- **Zenodo/local storage:** MRI images, labels, trained checkpoints,
+  preprocessed arrays, probability maps, and other large generated artifacts.
+
 ```text
 .
 |-- models/
 |   `-- README.md              # model download and extraction instructions
+|-- metadata/deepmeta/         # public configs, splits, and sanitized metadata
 |-- scripts/
 |   |-- merge_masks.py
 |   |-- total_tumor_burden.py

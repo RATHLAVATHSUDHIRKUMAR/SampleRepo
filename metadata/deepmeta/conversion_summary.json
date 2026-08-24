@@ -1,0 +1,18 @@
+{
+  "eligible_cases": 103,
+  "unique_mice": 41,
+  "metastasis_positive_cases": 41,
+  "lesion_annotated_positive_cases": 30,
+  "metastatic_cases_excluded_from_lesion_training": 11,
+  "healthy_negative_cases": 62,
+  "lesion_training_cases": 92,
+  "longitudinal_cases_with_known_days": 28,
+  "spacing_xyz_mm": [
+    0.15625,
+    0.15625,
+    0.1953125
+  ],
+  "voxel_volume_mm3": 0.00476837158203125,
+  "folds": 5,
+  "seed": 2026
+}
