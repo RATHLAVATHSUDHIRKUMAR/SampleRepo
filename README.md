@@ -145,10 +145,18 @@ for the DeepMeta provenance, conversion, exclusions, and validation protocol.
 
 The GitHub repository contains only source code and documentation. Trained weights, extracted model folders, example MRI volumes, and generated predictions are intentionally excluded from Git.
 
+The publication boundary is:
+
+- **GitHub:** source code, documentation, configurations, grouped splits, and
+  sanitized metadata.
+- **Zenodo/local storage:** MRI images, labels, trained checkpoints,
+  preprocessed arrays, probability maps, and other large generated artifacts.
+
 ```text
 .
 |-- models/
 |   `-- README.md              # model download and extraction instructions
+|-- metadata/deepmeta/         # public configs, splits, and sanitized metadata
 |-- scripts/
 |   |-- merge_masks.py
 |   |-- total_tumor_burden.py
