@@ -133,13 +133,18 @@ Key differences from the legacy pipeline:
 - The LacZ/iL34c comparison remains preliminary phenotype validation.
 - Radiogenomic claims are reserved until matched RNA or pathology data exist.
 
-The advanced architecture is not yet a released trained model. Lung fold
-training is in progress; anatomy-guided lesion training and downstream model
-validation follow after all out-of-fold lung probabilities are available.
+The advanced architecture is not yet a released trained model. Lung Fold 0 has
+completed 500 epochs with a mean validation Dice of 0.9176, and all 23 held-out
+soft probability maps have been exported. Fold 1 is now training with the same
+500-epoch configuration; folds 2–4 remain pending. Anatomy-guided lesion
+training and downstream validation follow after all out-of-fold lung
+probabilities are available.
 
 See [ARCHITECTURE_AND_PIPELINE.md](ARCHITECTURE_AND_PIPELINE.md) for the complete
-advanced specification and [DEEP_META_DATA_AUDIT.md](DEEP_META_DATA_AUDIT.md)
-for the DeepMeta provenance, conversion, exclusions, and validation protocol.
+advanced specification, [docs/LUNG_FOLD0_AUDIT.md](docs/LUNG_FOLD0_AUDIT.md) for
+the first quantitative and visual validation audit, and
+[DEEP_META_DATA_AUDIT.md](DEEP_META_DATA_AUDIT.md) for the DeepMeta provenance,
+conversion, exclusions, and validation protocol.
 
 ## Repository contents
 
@@ -157,7 +162,9 @@ The publication boundary is:
 |-- models/
 |   `-- README.md              # model download and extraction instructions
 |-- metadata/deepmeta/         # public configs, splits, and sanitized metadata
+|-- docs/                      # validation reports and small audit visuals
 |-- scripts/
+|   |-- audit_lung_fold.py
 |   |-- merge_masks.py
 |   |-- total_tumor_burden.py
 |   |-- package_inference_lung.sh
