@@ -9,7 +9,7 @@ future radiogenomic validation.
 
 ## Implementation status
 
-Status snapshot: **2026-08-23, lung fold 0 at epoch 16 of 1,000**.
+Status snapshot: **2026-08-25, lung fold 0 complete and fold 1 training started**.
 
 Overall milestone count:
 
@@ -25,7 +25,7 @@ Overall milestone count:
 | 3 | Convert TIFF data to physical-space NIfTI | Complete | 103 lung cases and 92 valid lesion-training cases prepared. |
 | 4 | Create mouse-grouped five-fold splits | Complete | Five folds generated with zero mouse overlap. |
 | 5 | Plan and preprocess the lung dataset | Complete | nnU-Net 2D and 3D full-resolution preprocessing completed. |
-| 6 | Train five lung folds and export validation probabilities | **In progress** | Fold 0 is running with `3d_safe96`; folds 1–4 have not started. |
+| 6 | Train five lung folds and export validation probabilities | **In progress** | Fold 0 completed with mean Dice 0.9176 and 23 soft probability maps; Fold 1 is training with 81 training and 22 validation scans; folds 2–4 have not started. |
 | 7 | Assemble out-of-fold lung probabilities | Pending | Requires completed validation probabilities from all five lung folds. |
 | 8 | Build and preprocess the two-channel lesion dataset | Pending | Builder is implemented and intentionally waits for out-of-fold probabilities. |
 | 9 | Train five anatomy-guided lesion folds | Pending | Starts after Dataset202 is built and preprocessed. |
@@ -37,8 +37,18 @@ Overall milestone count:
 
 The milestone count describes implementation progress, not scientific
 validation. A stage is marked complete only when its required data products and
-quality checks exist. The epoch value above is a dated snapshot; the training
-log and checkpoint directory are the authoritative live sources.
+quality checks exist. Fold 0 was shortened from 1,000 to 500 epochs after its
+validation Dice had reached a stable useful range, allowing an earlier formal
+evaluation before committing resources to the remaining folds. Training resumed
+from the backed-up epoch-400 checkpoint and completed normally. The 23-case
+validation audit found a mean Dice of 0.9176, median Dice of 0.9770, and five
+cases below 0.85; visual review showed boundary disagreement concentrated near
+the diaphragm and outer lung margins. All 23 Fold 0 soft probability maps were
+exported with `--npz`. The training log, audit outputs, and checkpoint directory
+are the authoritative live sources.
+
+The sanitized quantitative report and representative overlays are available in
+[`docs/LUNG_FOLD0_AUDIT.md`](docs/LUNG_FOLD0_AUDIT.md).
 
 ## 1. System architecture
 
