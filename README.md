@@ -133,16 +133,18 @@ Key differences from the legacy pipeline:
 - The LacZ/iL34c comparison remains preliminary phenotype validation.
 - Radiogenomic claims are reserved until matched RNA or pathology data exist.
 
-The advanced architecture is not yet a released trained model. Lung Fold 0 has
-completed 500 epochs with a mean validation Dice of 0.9176, and all 23 held-out
-soft probability maps have been exported. Fold 1 is now training with the same
-500-epoch configuration; folds 2–4 remain pending. Anatomy-guided lesion
+The advanced architecture is not yet a released trained model. Lung Folds 0 and
+1 have completed 500 epochs. Fold 0 reached mean validation Dice 0.9176 with 23
+held-out maps; Fold 1's selected best checkpoint reached 0.8414 with 22 maps.
+Folds 2–4 remain pending. Anatomy-guided lesion
 training and downstream validation follow after all out-of-fold lung
 probabilities are available.
 
 See [ARCHITECTURE_AND_PIPELINE.md](ARCHITECTURE_AND_PIPELINE.md) for the complete
 advanced specification, [docs/LUNG_FOLD0_AUDIT.md](docs/LUNG_FOLD0_AUDIT.md) for
-the first quantitative and visual validation audit, and
+the first quantitative and visual validation audit,
+[docs/LUNG_FOLD1_AUDIT.md](docs/LUNG_FOLD1_AUDIT.md) for the Fold 1 checkpoint
+comparison, and
 [DEEP_META_DATA_AUDIT.md](DEEP_META_DATA_AUDIT.md) for the DeepMeta provenance,
 conversion, exclusions, and validation protocol.
 
