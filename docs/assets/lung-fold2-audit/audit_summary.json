@@ -1,0 +1,16 @@
+{
+  "case_count": 22,
+  "mean_dice": 0.9047067176584757,
+  "median_dice": 0.9316389493101802,
+  "minimum_dice": 0.5091670164122728,
+  "maximum_dice": 0.9837784211505349,
+  "cases_below_0_90": 3,
+  "cases_below_0_85": 3,
+  "selected_overlays": [
+    "deepmeta_089_m2Pc_c2_08Corr_1",
+    "deepmeta_098_PL_c2_05Corr_1",
+    "deepmeta_058_2PLc_day120",
+    "deepmeta_138_NoP_c1_17Corr_1",
+    "deepmeta_100_Plc_c3_07Corr_1"
+  ]
+}
