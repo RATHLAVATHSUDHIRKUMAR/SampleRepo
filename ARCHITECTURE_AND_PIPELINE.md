@@ -9,7 +9,7 @@ future radiogenomic validation.
 
 ## Implementation status
 
-Status snapshot: **2026-08-27, lung folds 0 and 1 complete; fold 2 is next**.
+Status snapshot: **2026-08-29, lung folds 0–2 complete; fold 3 training started**.
 
 Overall milestone count:
 
@@ -25,7 +25,7 @@ Overall milestone count:
 | 3 | Convert TIFF data to physical-space NIfTI | Complete | 103 lung cases and 92 valid lesion-training cases prepared. |
 | 4 | Create mouse-grouped five-fold splits | Complete | Five folds generated with zero mouse overlap. |
 | 5 | Plan and preprocess the lung dataset | Complete | nnU-Net 2D and 3D full-resolution preprocessing completed. |
-| 6 | Train five lung folds and export validation probabilities | **In progress** | Fold 0: mean Dice 0.9176 and 23 maps. Fold 1: selected-best mean Dice 0.8414 and 22 maps. Folds 2–4 have not started. |
+| 6 | Train five lung folds and export validation probabilities | **In progress** | Fold 0: 0.9176/23 maps; Fold 1: 0.8414/22 maps; Fold 2: 0.9047/22 maps. Fold 3 is training; Fold 4 is pending. |
 | 7 | Assemble out-of-fold lung probabilities | Pending | Requires completed validation probabilities from all five lung folds. |
 | 8 | Build and preprocess the two-channel lesion dataset | Pending | Builder is implemented and intentionally waits for out-of-fold probabilities. |
 | 9 | Train five anatomy-guided lesion folds | Pending | Starts after Dataset202 is built and preprocessed. |
@@ -55,10 +55,20 @@ checkpoint; one difficult case accounted for a large +0.2551 gain. This paired
 result is retained to avoid interpreting the higher mean as a uniform
 improvement. All 22 selected-best soft probability maps were exported.
 
+Fold 2 completed 500 epochs. Its final checkpoint scored mean Dice 0.9047
+(median 0.9316), slightly exceeding the saved best checkpoint's 0.9034
+(median 0.9297). The final checkpoint performed better on 19 of 22 cases and was
+selected for out-of-fold guidance. Three cases scored below 0.85 and remain in
+the reported evaluation. All 22 selected-final probability maps were exported.
+Fold 3 subsequently started with 85 training and 18 mouse-grouped validation
+scans using the same 500-epoch configuration.
+
 The sanitized quantitative report and representative overlays are available in
 [`docs/LUNG_FOLD0_AUDIT.md`](docs/LUNG_FOLD0_AUDIT.md).
 The Fold 1 checkpoint comparison and validation audit are documented in
 [`docs/LUNG_FOLD1_AUDIT.md`](docs/LUNG_FOLD1_AUDIT.md).
+The Fold 2 statistics and representative overlays are documented in
+[`docs/LUNG_FOLD2_AUDIT.md`](docs/LUNG_FOLD2_AUDIT.md).
 
 ## 1. System architecture
 
@@ -298,4 +308,3 @@ outputs/
 The primary validated output is a confidence-aware longitudinal imaging
 phenotype. Treatment-response and radiogenomic conclusions remain separate
 downstream validation stages.
-

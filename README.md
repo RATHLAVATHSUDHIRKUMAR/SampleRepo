@@ -1,4 +1,4 @@
-# Mouse T2W MRI Lung Lesion Segmentation
+﻿# Mouse T2W MRI Lung Lesion Segmentation
 
 A research repository for lung and pulmonary-lesion segmentation in mouse MRI.
 It contains the existing legacy inference pipeline and an advanced anatomy-guided
@@ -133,10 +133,10 @@ Key differences from the legacy pipeline:
 - The LacZ/iL34c comparison remains preliminary phenotype validation.
 - Radiogenomic claims are reserved until matched RNA or pathology data exist.
 
-The advanced architecture is not yet a released trained model. Lung Folds 0 and
-1 have completed 500 epochs. Fold 0 reached mean validation Dice 0.9176 with 23
-held-out maps; Fold 1's selected best checkpoint reached 0.8414 with 22 maps.
-Folds 2–4 remain pending. Anatomy-guided lesion
+The advanced architecture is not yet a released trained model. Lung Folds 0–2
+have completed 500 epochs. Their selected validation Dice scores are 0.9176,
+0.8414, and 0.9047, with 67 held-out soft probability maps exported in total.
+Fold 3 is training and Fold 4 remains pending. Anatomy-guided lesion
 training and downstream validation follow after all out-of-fold lung
 probabilities are available.
 
@@ -144,7 +144,8 @@ See [ARCHITECTURE_AND_PIPELINE.md](ARCHITECTURE_AND_PIPELINE.md) for the complet
 advanced specification, [docs/LUNG_FOLD0_AUDIT.md](docs/LUNG_FOLD0_AUDIT.md) for
 the first quantitative and visual validation audit,
 [docs/LUNG_FOLD1_AUDIT.md](docs/LUNG_FOLD1_AUDIT.md) for the Fold 1 checkpoint
-comparison, and
+comparison, [docs/LUNG_FOLD2_AUDIT.md](docs/LUNG_FOLD2_AUDIT.md) for Fold 2
+statistics and representative overlays, and
 [DEEP_META_DATA_AUDIT.md](DEEP_META_DATA_AUDIT.md) for the DeepMeta provenance,
 conversion, exclusions, and validation protocol.
 
@@ -351,5 +352,4 @@ The original lung-model nnU-Net metadata names channel 0 `CT`, stores the intern
 ## Citation
 
 If you use this pipeline, please cite this repository, the Zenodo model record, the associated publication, and [nnU-Net](https://github.com/MIC-DKFZ/nnUNet).
-
 
