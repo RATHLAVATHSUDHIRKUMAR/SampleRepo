@@ -80,6 +80,17 @@ The Fold 2 statistics and representative overlays are documented in
 The Fold 3 checkpoint comparison and outlier analysis are documented in
 [`docs/LUNG_FOLD3_AUDIT.md`](docs/LUNG_FOLD3_AUDIT.md).
 
+Fold-specific scientific interpretations are maintained separately from the
+measurement audits so that observations are not confused with conclusions:
+
+| Fold | Interpretation |
+|---:|---|
+| 0 | [`docs/interpretations/LUNG_FOLD0_INTERPRETATION.md`](docs/interpretations/LUNG_FOLD0_INTERPRETATION.md) |
+| 1 | [`docs/interpretations/LUNG_FOLD1_INTERPRETATION.md`](docs/interpretations/LUNG_FOLD1_INTERPRETATION.md) |
+| 2 | [`docs/interpretations/LUNG_FOLD2_INTERPRETATION.md`](docs/interpretations/LUNG_FOLD2_INTERPRETATION.md) |
+| 3 | [`docs/interpretations/LUNG_FOLD3_INTERPRETATION.md`](docs/interpretations/LUNG_FOLD3_INTERPRETATION.md) |
+| 4 | Added after Fold 4 checkpoint comparison and audit are complete. |
+
 ## 1. System architecture
 
 ```mermaid
