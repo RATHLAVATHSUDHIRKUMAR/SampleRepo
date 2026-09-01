@@ -138,7 +138,7 @@ folds have completed 500 epochs. Their selected validation Dice scores are
 0.9176, 0.8414, 0.9047, 0.8411, and 0.8674. All 103 held-out soft probability
 maps were exported with zero missing or duplicate cases. The 92-case two-channel
 anatomy-guided lesion dataset has been built and preprocessed; lesion-model
-validation is beginning with a Fold 0 smoke test.
+validation passed a five-epoch smoke test and full Fold 0 training has started.
 
 See [ARCHITECTURE_AND_PIPELINE.md](ARCHITECTURE_AND_PIPELINE.md) for the complete
 advanced specification, [docs/LUNG_FOLD0_AUDIT.md](docs/LUNG_FOLD0_AUDIT.md) for
