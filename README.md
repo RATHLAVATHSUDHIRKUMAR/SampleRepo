@@ -138,7 +138,9 @@ folds have completed 500 epochs. Their selected validation Dice scores are
 0.9176, 0.8414, 0.9047, 0.8411, and 0.8674. All 103 held-out soft probability
 maps were exported with zero missing or duplicate cases. The 92-case two-channel
 anatomy-guided lesion dataset has been built and preprocessed; lesion-model
-validation is beginning with a Fold 0 smoke test.
+validation passed a five-epoch smoke test. Full Fold 0 training is running on
+the D: results drive with reduced host-memory loading; epoch 0 completed in
+291.01 seconds with pseudo-Dice 0.0728 and wrote a valid 238.12 MB checkpoint.
 
 See [ARCHITECTURE_AND_PIPELINE.md](ARCHITECTURE_AND_PIPELINE.md) for the complete
 advanced specification, [docs/LUNG_FOLD0_AUDIT.md](docs/LUNG_FOLD0_AUDIT.md) for
@@ -148,7 +150,9 @@ comparison, [docs/LUNG_FOLD2_AUDIT.md](docs/LUNG_FOLD2_AUDIT.md) for Fold 2
 statistics and representative overlays,
 [docs/LUNG_FOLD3_AUDIT.md](docs/LUNG_FOLD3_AUDIT.md) for Fold 3 checkpoint and
 outlier analysis, [docs/LUNG_FOLD4_AUDIT.md](docs/LUNG_FOLD4_AUDIT.md) for the
-final lung fold, and
+Fold 4 audit, and
+[docs/LESION_FOLD0_TRAINING_STATUS.md](docs/LESION_FOLD0_TRAINING_STATUS.md) for
+the active lesion-training configuration and startup record, and
 [DEEP_META_DATA_AUDIT.md](DEEP_META_DATA_AUDIT.md) for the DeepMeta provenance,
 conversion, exclusions, and validation protocol.
 
