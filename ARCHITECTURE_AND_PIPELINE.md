@@ -9,13 +9,13 @@ future radiogenomic validation.
 
 ## Implementation status
 
-Status snapshot: **2026-08-30, lung folds 0–3 complete; fold 4 is next**.
+Status snapshot: **2026-09-01, all five lung folds complete; anatomy-guided lesion smoke test running**.
 
 Overall milestone count:
 
-- **6 completed**
+- **9 completed**
 - **1 in progress**
-- **6 pending**
+- **3 pending**
 - **1 waiting for external matched data**
 
 | # | Milestone | Status | Current result or next action |
@@ -25,10 +25,10 @@ Overall milestone count:
 | 3 | Convert TIFF data to physical-space NIfTI | Complete | 103 lung cases and 92 valid lesion-training cases prepared. |
 | 4 | Create mouse-grouped five-fold splits | Complete | Five folds generated with zero mouse overlap. |
 | 5 | Plan and preprocess the lung dataset | Complete | nnU-Net 2D and 3D full-resolution preprocessing completed. |
-| 6 | Train five lung folds and export validation probabilities | **In progress** | Fold 0: 0.9176/23 maps; Fold 1: 0.8414/22 maps; Fold 2: 0.9047/22 maps; Fold 3: 0.8411/18 maps. Fold 4 is pending. |
-| 7 | Assemble out-of-fold lung probabilities | Pending | Requires completed validation probabilities from all five lung folds. |
-| 8 | Build and preprocess the two-channel lesion dataset | Pending | Builder is implemented and intentionally waits for out-of-fold probabilities. |
-| 9 | Train five anatomy-guided lesion folds | Pending | Starts after Dataset202 is built and preprocessed. |
+| 6 | Train five lung folds and export validation probabilities | Complete | Selected Dice: 0.9176, 0.8414, 0.9047, 0.8411, 0.8674. All 103 maps exported. |
+| 7 | Assemble out-of-fold lung probabilities | Complete | 103 files, 103 unique cases, zero missing, zero duplicates, zero unexpected cases. |
+| 8 | Build and preprocess the two-channel lesion dataset | Complete | Dataset202 contains 92 eligible cases and passes nnU-Net integrity verification. |
+| 9 | Train five anatomy-guided lesion folds | **In progress** | Five-epoch Fold 0 smoke test is running before full cross-validation. |
 | 10 | Generate ensemble uncertainty and calibrated confidence | Pending | Requires predictions from the five lesion folds. |
 | 11 | Register and track longitudinal predicted lesions | Pending | Ground-truth volume utility exists; full tracking requires model predictions. |
 | 12 | Extract and validate radiomic features | Pending | Requires final lesion ROIs and a fixed radiomics protocol. |
@@ -71,6 +71,14 @@ One persistent failure scored approximately 0.0987 under both checkpoints, and
 six selected-best cases scored below 0.85. All 18 selected-best probability maps
 were exported. Fold 4 is the remaining lung fold.
 
+Fold 4 completed 500 epochs. The final checkpoint scored mean Dice 0.8674
+(median 0.9514), slightly exceeding the saved best checkpoint's 0.8669
+(median 0.9480), and performed better on 11 of 18 cases. Two severe failures
+scored approximately 0.29 and 0.30 under both checkpoints. The final checkpoint
+was selected and all 18 probability maps were exported. Across all folds, the
+103 exported maps match 103 unique source cases with no missing or duplicate
+identifiers.
+
 The sanitized quantitative report and representative overlays are available in
 [`docs/LUNG_FOLD0_AUDIT.md`](docs/LUNG_FOLD0_AUDIT.md).
 The Fold 1 checkpoint comparison and validation audit are documented in
@@ -79,6 +87,8 @@ The Fold 2 statistics and representative overlays are documented in
 [`docs/LUNG_FOLD2_AUDIT.md`](docs/LUNG_FOLD2_AUDIT.md).
 The Fold 3 checkpoint comparison and outlier analysis are documented in
 [`docs/LUNG_FOLD3_AUDIT.md`](docs/LUNG_FOLD3_AUDIT.md).
+The final lung-fold audit is documented in
+[`docs/LUNG_FOLD4_AUDIT.md`](docs/LUNG_FOLD4_AUDIT.md).
 
 Fold-specific scientific interpretations are maintained separately from the
 measurement audits so that observations are not confused with conclusions:
@@ -89,7 +99,7 @@ measurement audits so that observations are not confused with conclusions:
 | 1 | [`docs/interpretations/LUNG_FOLD1_INTERPRETATION.md`](docs/interpretations/LUNG_FOLD1_INTERPRETATION.md) |
 | 2 | [`docs/interpretations/LUNG_FOLD2_INTERPRETATION.md`](docs/interpretations/LUNG_FOLD2_INTERPRETATION.md) |
 | 3 | [`docs/interpretations/LUNG_FOLD3_INTERPRETATION.md`](docs/interpretations/LUNG_FOLD3_INTERPRETATION.md) |
-| 4 | Added after Fold 4 checkpoint comparison and audit are complete. |
+| 4 | [`docs/interpretations/LUNG_FOLD4_INTERPRETATION.md`](docs/interpretations/LUNG_FOLD4_INTERPRETATION.md) |
 
 ## 1. System architecture
 
