@@ -138,9 +138,10 @@ folds have completed 500 epochs. Their selected validation Dice scores are
 0.9176, 0.8414, 0.9047, 0.8411, and 0.8674. All 103 held-out soft probability
 maps were exported with zero missing or duplicate cases. The 92-case two-channel
 anatomy-guided lesion dataset has been built and preprocessed; lesion-model
-validation passed a five-epoch smoke test. Full Fold 0 training is running on
-the D: results drive with reduced host-memory loading; epoch 0 completed in
-291.01 seconds with pseudo-Dice 0.0728 and wrote a valid 238.12 MB checkpoint.
+validation passed a five-epoch smoke test. Full Fold 0 training completed 500
+epochs on the D: results drive and produced predictions for all 22 held-out
+cases. The automatic final-checkpoint validation Dice is 0.1930; saved-best
+checkpoint validation and checkpoint selection remain in progress.
 
 See [ARCHITECTURE_AND_PIPELINE.md](ARCHITECTURE_AND_PIPELINE.md) for the complete
 advanced specification, [docs/LUNG_FOLD0_AUDIT.md](docs/LUNG_FOLD0_AUDIT.md) for
