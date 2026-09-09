@@ -36,9 +36,9 @@ checkpoint problem was resolved. Training subsequently completed all 500
 epochs, wrote `checkpoint_final.pth`, and generated predictions for all 22
 held-out cases. The automatic final-checkpoint validation reported mean
 foreground Dice 0.1930 and mean IoU 0.1317. This is a preliminary result: the
-saved-best checkpoint still requires the same held-out evaluation before a
-checkpoint is selected, and the validation cohort contains lesion-negative
-cases that require explicit detection-oriented reporting.
+saved-best checkpoint scored 0.0976 on the same held-out set, so the final
+checkpoint was selected. The validation cohort contains lesion-negative cases
+that also require explicit detection-oriented reporting.
 
 ## Reproducible launch settings
 
@@ -49,10 +49,7 @@ published through Zenodo rather than committed to GitHub.
 
 ## Next actions
 
-1. Validate the saved-best checkpoint and compare it with the final checkpoint
-   on the 22 held-out cases.
-2. Export the selected Fold 0 lesion probabilities and record case-level metrics and visual
-   error analysis.
-3. Repeat the same protocol for lesion folds 1-4.
-4. Assemble five-fold out-of-fold lesion predictions before uncertainty,
+1. Record case-level metrics and visual error analysis.
+2. Repeat the same protocol for lesion folds 1-4.
+3. Assemble five-fold out-of-fold lesion predictions before uncertainty,
    longitudinal tracking, radiomics, or phenotype analysis.

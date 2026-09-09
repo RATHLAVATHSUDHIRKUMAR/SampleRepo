@@ -9,7 +9,7 @@ future radiogenomic validation.
 
 ## Implementation status
 
-Status snapshot: **2026-09-03, all five lung folds complete; anatomy-guided lesion Fold 0 completed training and final-checkpoint validation**.
+Status snapshot: **2026-09-08, all five lung folds complete; anatomy-guided lesion folds 0-2 completed training**.
 
 Overall milestone count:
 
@@ -28,7 +28,7 @@ Overall milestone count:
 | 6 | Train five lung folds and export validation probabilities | Complete | Selected Dice: 0.9176, 0.8414, 0.9047, 0.8411, 0.8674. All 103 maps exported. |
 | 7 | Assemble out-of-fold lung probabilities | Complete | 103 files, 103 unique cases, zero missing, zero duplicates, zero unexpected cases. |
 | 8 | Build and preprocess the two-channel lesion dataset | Complete | Dataset202 contains 92 eligible cases and passes nnU-Net integrity verification. |
-| 9 | Train five anatomy-guided lesion folds | **In progress** | Fold 0 completed 500 epochs. Automatic final-checkpoint validation on 22 cases produced mean foreground Dice 0.1930; saved-best comparison is next. |
+| 9 | Train five anatomy-guided lesion folds | **In progress** | Folds 0-2 completed 500 epochs. Selected Dice: Fold 0 final 0.1930; Fold 1 saved-best 0.1091. Fold 2 final scored 0.2986 and awaits saved-best comparison. |
 | 10 | Generate ensemble uncertainty and calibrated confidence | Pending | Requires predictions from the five lesion folds. |
 | 11 | Register and track longitudinal predicted lesions | Pending | Ground-truth volume utility exists; full tracking requires model predictions. |
 | 12 | Extract and validate radiomic features | Pending | Requires final lesion ROIs and a fixed radiomics protocol. |

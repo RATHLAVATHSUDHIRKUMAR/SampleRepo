@@ -138,10 +138,10 @@ folds have completed 500 epochs. Their selected validation Dice scores are
 0.9176, 0.8414, 0.9047, 0.8411, and 0.8674. All 103 held-out soft probability
 maps were exported with zero missing or duplicate cases. The 92-case two-channel
 anatomy-guided lesion dataset has been built and preprocessed; lesion-model
-validation passed a five-epoch smoke test. Full Fold 0 training completed 500
-epochs on the D: results drive and produced predictions for all 22 held-out
-cases. The automatic final-checkpoint validation Dice is 0.1930; saved-best
-checkpoint validation and checkpoint selection remain in progress.
+validation passed a five-epoch smoke test. Lesion folds 0-2 completed 500 epochs.
+Fold 0 selected its final checkpoint (Dice 0.1930); Fold 1 selected its saved-best
+checkpoint (Dice 0.1091) after its final model collapsed to all background; and
+Fold 2's final checkpoint scored 0.2986, with saved-best validation pending.
 
 See [ARCHITECTURE_AND_PIPELINE.md](ARCHITECTURE_AND_PIPELINE.md) for the complete
 advanced specification, [docs/LUNG_FOLD0_AUDIT.md](docs/LUNG_FOLD0_AUDIT.md) for
@@ -153,7 +153,11 @@ statistics and representative overlays,
 outlier analysis, [docs/LUNG_FOLD4_AUDIT.md](docs/LUNG_FOLD4_AUDIT.md) for the
 Fold 4 audit, and
 [docs/LESION_FOLD0_TRAINING_STATUS.md](docs/LESION_FOLD0_TRAINING_STATUS.md) for
-the active lesion-training configuration and startup record, and
+the lesion Fold 0 runtime record,
+[docs/interpretations/LESION_FOLD1_INTERPRETATION.md](docs/interpretations/LESION_FOLD1_INTERPRETATION.md)
+for the Fold 1 checkpoint failure analysis,
+[docs/LESION_FOLD2_TRAINING_STATUS.md](docs/LESION_FOLD2_TRAINING_STATUS.md) for
+the Fold 2 preliminary result, and
 [DEEP_META_DATA_AUDIT.md](DEEP_META_DATA_AUDIT.md) for the DeepMeta provenance,
 conversion, exclusions, and validation protocol.
 
